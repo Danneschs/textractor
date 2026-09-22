@@ -1,0 +1,28 @@
+table 'Akceptovatelné F1 skóre v extrakční fázi'
+	lineageTag: 87c3ca92-a267-4525-8b76-fae1676efa70
+
+	measure 'Hodnota parametru Akceptovatelné F1 skóre v extrakční fázi' = SELECTEDVALUE('Akceptovatelné F1 skóre v extrakční fázi'[Akceptovatelné F1 skóre v extrakční fázi], "0.85")
+		lineageTag: a58904b2-4ce2-401d-a24e-9b2a70077c5c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Akceptovatelné F1 skóre v extrakční fázi'
+		lineageTag: 895c2110-3fe1-4ac8-939a-5523c126ee5c
+		summarizeBy: none
+		sourceColumn: [Value]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Akceptovatelné F1 skóre v extrakční fázi' = calculated
+		mode: import
+		source = GENERATESERIES(0, 1, 0.005)
+
+	annotation PBI_Id = 5b7b73d224e84aa080b50c59b9ac1ed8
+

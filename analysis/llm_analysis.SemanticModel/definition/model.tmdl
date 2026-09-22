@@ -1,0 +1,37 @@
+model Model
+	culture: cs-CZ
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: cs-CZ
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["ANALYZED_TEXT","DOCUMENT","ANALYZED_TEXT_EVAL","EXTRACTED_TEXT","EXTRACTED_TEXT_EVAL","EXTRACTION_RUN","MODEL","PROMPT","DIM_MODEL_ANALYSIS","DIM_PROMPT_ANALYSIS","MODEL_PRICE","HUMAN_COST","Switch_human_summary"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table ANALYZED_TEXT
+ref table DateTableTemplate_d0af0168-5866-46b8-b314-25bce376bc91
+ref table LocalDateTable_6bbedc92-2fea-433c-a55e-47152247db44
+ref table DOCUMENT
+ref table LocalDateTable_da0b0f88-6dec-4662-b9cc-e58f50edcf7b
+ref table ANALYZED_TEXT_EVAL
+ref table EXTRACTED_TEXT
+ref table EXTRACTED_TEXT_EVAL
+ref table EXTRACTION_RUN
+ref table LocalDateTable_cb630028-8cf8-4df6-9229-1199c034d67f
+ref table MODEL
+ref table PROMPT
+ref table DIM_MODEL_ANALYSIS
+ref table DIM_PROMPT_ANALYSIS
+ref table MODEL_PRICE
+ref table HUMAN_COST
+ref table 'Akceptovatelné F1 skóre v extrakční fázi'
+ref table 'Akceptovatelná přesnost ve formalizační fázi'
+ref table Switch_human_summary
+ref table SPOLECNE_MODELY
+
+ref cultureInfo cs-CZ
+

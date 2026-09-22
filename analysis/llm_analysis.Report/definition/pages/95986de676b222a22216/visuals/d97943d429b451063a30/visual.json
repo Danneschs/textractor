@@ -1,0 +1,97 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "d97943d429b451063a30",
+  "position": {
+    "x": 0,
+    "y": 0,
+    "z": 0,
+    "height": 720,
+    "width": 1280,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "HUMAN_COST"
+                    }
+                  },
+                  "Property": "Celková cena člověka (CZK)"
+                }
+              },
+              "queryRef": "HUMAN_COST.Celková cena člověka (CZK)",
+              "nativeQueryRef": "Celková cena člověka (CZK)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "MODEL_PRICE"
+                    }
+                  },
+                  "Property": "Celková cena GPT (CZK)"
+                }
+              },
+              "queryRef": "ANALYZED_TEXT.Celková cena GPT (CZK)",
+              "nativeQueryRef": "Celková cena GPT (CZK)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "MODEL_PRICE"
+                    }
+                  },
+                  "Property": "Celkový čas GPT (min)"
+                }
+              },
+              "queryRef": "MODEL_PRICE.Celkový čas GPT (min)",
+              "nativeQueryRef": "Celkový čas GPT (min)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "HUMAN_COST"
+                    }
+                  },
+                  "Property": "Celkový čas člověka (min)"
+                }
+              },
+              "queryRef": "HUMAN_COST.Celkový čas člověka (min)",
+              "nativeQueryRef": "Celkový čas člověka (min)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "MODEL_PRICE"
+                    }
+                  },
+                  "Property": "Ušetřený čas GPT (min)"
+                }
+              },
+              "queryRef": "MODEL_PRICE.Ušetřený čas GPT (min)",
+              "nativeQueryRef": "Ušetřený čas GPT (min)"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

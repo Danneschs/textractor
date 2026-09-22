@@ -1,0 +1,549 @@
+%%
+@article{cancer-relative-medical-attributes,
+title = {From text to data: Open-source large language models in extracting cancer related medical attributes from German pathology reports},
+journal = {International Journal of Medical Informatics},
+volume = {203},
+pages = {106022},
+year = {2025},
+issn = {1386-5056},
+doi = {https://doi.org/10.1016/j.ijmedinf.2025.106022},
+url = {https://www.sciencedirect.com/science/article/pii/S1386505625002394},
+author = {Stefan Bartels and Jasmin Carus},
+keywords = {Prompt design, German, Oncology, Large language models, Retrival augmented generation, Natural language processing, Cancer registry, Pathology, Privacy, Computer science, Medical informatics, Knowledge extraction},
+abstract = {Structured oncological documentation is vital for data-driven cancer care, yet extracting clinical features from unstructured pathology reports remains challenging—especially in German healthcare, where strict data protection rules require local model deployment. This study evaluates open-source large language models (LLMs) for extracting oncological attributes from German pathology reports in a secure, on-premise setting. We created a gold-standard dataset of 522 annotated reports and developed a retrieval-augmented generation (RAG) pipeline using an additional 15,000 pathology reports. Five instruction-tuned LLMs (Llama 3.3 70B, Mistral Small 24B, and three SauerkrautLM variants) were evaluated using three prompting strategies: zero-shot, few-shot, and RAG-enhanced few-shot prompting. All models produced structured JSON outputs and were assessed using entity-level precision, recall, accuracy, and macro-averaged F1-score. Results show that Llama 3.3 70B achieved the highest overall performance (F1 > 0.90). However, when combined with the RAG pipeline, Mistral Small 24B achieved nearly equivalent performance, matching Llama 70B on most entity types while requiring significantly fewer computational resources. Prompting strategy significantly impacted performance: few-shot prompting improved baseline accuracy, and RAG further enhanced performance, particularly for models with fewer than 24B parameters. Challenges remained in extracting less frequent but clinically critical attributes like metastasis and staging, underscoring the importance of retrieval mechanisms and balanced training data. This study demonstrates that open-source LLMs, when paired with effective prompting and retrieval strategies, can enable high-quality, privacy-compliant extraction of oncological information from unstructured text. The finding that smaller models can match larger ones through retrieval augmentation highlights a path toward scalable, resource-efficient deployment in German clinical settings.}
+}
+
+
+%%
+@INPROCEEDINGS{llm-with-nlp-long-docs-info-extraction,
+  author={Chen, Linjie and Sun, Min and Liu, Jiarong and Ding, Pengyong and Ma, Yuliang and Li, Li and Qian, Lili and Yang, Yang},
+  booktitle={2023 4th International Conference on Computer, Big Data and Artificial Intelligence (ICCBD+AI)}, 
+  title={A Method for Extracting Information from Long Documents that Combines Large Language Models with Natural Language Understanding Techniques}, 
+  year={2023},
+  volume={},
+  number={},
+  pages={43-47},
+  keywords={Industries;Computational modeling;Semantics;Big Data;Information retrieval;Transformers;Natural language processing;Information Extraction;Transformers;Large language models;AIGC;Natural language processing;Machine learning;Artificial intelligence,},
+  doi={10.1109/ICCBD-AI62252.2023.00015}}
+
+
+%%
+@INPROCEEDINGS{regular-expressions-oop,
+  author={Larkin, Henry},
+  booktitle={2008 8th IEEE International Conference on Computer and Information Technology}, 
+  title={Object oriented regular expressions}, 
+  year={2008},
+  volume={},
+  number={},
+  pages={491-496},
+  keywords={XML;Electronic mail;Computer languages;Data structures;Algorithm design and analysis;Data mining;Programming;regular expressions;object-oriented programming;XML},
+  doi={10.1109/CIT.2008.4594724}}
+
+%%
+@inproceedings{regex-learning-for-info-extraction,
+author = {Li, Yunyao and Krishnamurthy, Rajasekar and Raghavan, Sriram and Vaithyanathan, Shivakumar and Jagadish, H. V.},
+title = {Regular expression learning for information extraction},
+year = {2008},
+publisher = {Association for Computational Linguistics},
+address = {USA},
+abstract = {Regular expressions have served as the dominant workhorse of practical information extraction for several years. However, there has been little work on reducing the manual effort involved in building high-quality, complex regular expressions for information extraction tasks. In this paper, we propose ReLIE, a novel transformation-based algorithm for learning such complex regular expressions. We evaluate the performance of our algorithm on multiple datasets and compare it against the CRF algorithm. We show that ReLIE, in addition to being an order of magnitude faster, outperforms CRF under conditions of limited training data and cross-domain data. Finally, we show how the accuracy of CRF can be improved by using features extracted by ReLIE.},
+booktitle = {Proceedings of the Conference on Empirical Methods in Natural Language Processing},
+pages = {21–30},
+numpages = {10},
+location = {Honolulu, Hawaii},
+series = {EMNLP '08}
+}
+
+%%
+@article{chat-gpt-llm-education,
+title = {ChatGPT for good? On opportunities and challenges of large language models for education},
+journal = {Learning and Individual Differences},
+volume = {103},
+pages = {102274},
+year = {2023},
+issn = {1041-6080},
+doi = {https://doi.org/10.1016/j.lindif.2023.102274},
+url = {https://www.sciencedirect.com/science/article/pii/S1041608023000195},
+author = {Enkelejda Kasneci and Kathrin Sessler and Stefan Küchemann and Maria Bannert and Daryna Dementieva and Frank Fischer and Urs Gasser and Georg Groh and Stephan Günnemann and Eyke Hüllermeier and Stephan Krusche and Gitta Kutyniok and Tilman Michaeli and Claudia Nerdel and Jürgen Pfeffer and Oleksandra Poquet and Michael Sailer and Albrecht Schmidt and Tina Seidel and Matthias Stadler and Jochen Weller and Jochen Kuhn and Gjergji Kasneci},
+keywords = {Large language models, Artificial intelligence, Education, Educational technologies},
+abstract = {Large language models represent a significant advancement in the field of AI. The underlying technology is key to further innovations and, despite critical views and even bans within communities and regions, large language models are here to stay. This commentary presents the potential benefits and challenges of educational applications of large language models, from student and teacher perspectives. We briefly discuss the current state of large language models and their applications. We then highlight how these models can be used to create educational content, improve student engagement and interaction, and personalize learning experiences. With regard to challenges, we argue that large language models in education require teachers and learners to develop sets of competencies and literacies necessary to both understand the technology as well as their limitations and unexpected brittleness of such systems. In addition, a clear strategy within educational systems and a clear pedagogical approach with a strong focus on critical thinking and strategies for fact checking are required to integrate and take full advantage of large language models in learning settings and teaching curricula. Other challenges such as the potential bias in the output, the need for continuous human oversight, and the potential for misuse are not unique to the application of AI in education. But we believe that, if handled sensibly, these challenges can offer insights and opportunities in education scenarios to acquaint students early on with potential societal biases, criticalities, and risks of AI applications. We conclude with recommendations for how to address these challenges and ensure that such models are used in a responsible and ethical manner in education.}
+}
+
+%%
+@article{great-transformer,
+author = {Dieuwertje Luitse and Wiebke Denkena},
+title ={The great Transformer: Examining the role of large language models in the political economy of AI},
+
+journal = {Big Data \& Society},
+volume = {8},
+number = {2},
+pages = {20539517211047734},
+year = {2021},
+doi = {10.1177/20539517211047734},
+
+URL = { 
+    
+        https://doi.org/10.1177/20539517211047734
+    
+    
+
+},
+eprint = { 
+    
+        https://doi.org/10.1177/20539517211047734
+    
+    
+
+}
+,
+    abstract = { In recent years, AI research has become more and more computationally demanding. In natural language processing (NLP), this tendency is reflected in the emergence of large language models (LLMs) like GPT-3. These powerful neural network-based models can be used for a range of NLP tasks and their language generation capacities have become so sophisticated that it can be very difficult to distinguish their outputs from human language. LLMs have raised concerns over their demonstrable biases, heavy environmental footprints, and future social ramifications. In December 2020, critical research on LLMs led Google to fire Timnit Gebru, co-lead of the company’s AI Ethics team, which sparked a major public controversy around LLMs and the growing corporate influence over AI research. This article explores the role LLMs play in the political economy of AI as infrastructural components for AI research and development. Retracing the technical developments that have led to the emergence of LLMs, we point out how they are intertwined with the business model of big tech companies and further shift power relations in their favour. This becomes visible through the Transformer, which is the underlying architecture of most LLMs today and started the race for ever bigger models when it was introduced by Google in 2017. Using the example of GPT-3, we shed light on recent corporate efforts to commodify LLMs through paid API access and exclusive licensing, raising questions around monopolization and dependency in a field that is increasingly divided by access to large-scale computing power. }
+}
+
+%% 
+@inproceedings{n-grams,
+  title={N-gram: a language independent approach to IR and NLP},
+  author={Majumder, P and Mitra, M and Chaudhuri, BB},
+  booktitle={International conference on universal knowledge and language},
+  volume={2},
+  year={2002}
+}
+
+%%
+@article{first-links-markov-chain,
+author = {Hayes, Brian},
+year = {2013},
+month = {03},
+pages = {92-97},
+title = {First Links in the Markov Chain},
+volume = {101},
+journal = {American Scientist},
+doi = {10.1511/2013.101.92}
+}
+
+%%
+@article{llm-past-present-future,
+author = {Li, Hang},
+title = {Language models: past, present, and future},
+year = {2022},
+issue_date = {July 2022},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {65},
+number = {7},
+issn = {0001-0782},
+url = {https://doi.org/10.1145/3490443},
+doi = {10.1145/3490443},
+abstract = {A language modeling overview, highlighting basic concepts, intuitive explanations, technical achievements, and fundamental challenges.},
+journal = {Commun. ACM},
+month = jun,
+pages = {56–63},
+numpages = {8}
+}
+
+%%
+@article{neural-probabilistic-lm,
+  title={A neural probabilistic language model},
+  author={Bengio, Yoshua and Ducharme, R{\'e}jean and Vincent, Pascal and Jauvin, Christian},
+  journal={Journal of machine learning research},
+  volume={3},
+  number={Feb},
+  pages={1137--1155},
+  year={2003}
+}
+
+%%
+@article{attention-is-all-you-need,
+  author       = {Ashish Vaswani and
+                  Noam Shazeer and
+                  Niki Parmar and
+                  Jakob Uszkoreit and
+                  Llion Jones and
+                  Aidan N. Gomez and
+                  Lukasz Kaiser and
+                  Illia Polosukhin},
+  title        = {Attention Is All You Need},
+  journal      = {CoRR},
+  volume       = {abs/1706.03762},
+  year         = {2017},
+  url          = {http://arxiv.org/abs/1706.03762},
+  eprinttype   = {arXiv},
+  eprint       = {1706.03762},
+  timestamp    = {Sat, 23 Jan 2021 01:20:40 +0100},
+  biburl       = {https://dblp.org/rec/journals/corr/VaswaniSPUJGKP17.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+
+
+%% 
+%% zero-shot, ...
+@misc{efficient-large-scale-llm,
+      title={Efficient Large Scale Language Modeling with Mixtures of Experts}, 
+      author={Mikel Artetxe and Shruti Bhosale and Naman Goyal and Todor Mihaylov and Myle Ott and Sam Shleifer and Xi Victoria Lin and Jingfei Du and Srinivasan Iyer and Ramakanth Pasunuru and Giri Anantharaman and Xian Li and Shuohui Chen and Halil Akin and Mandeep Baines and Louis Martin and Xing Zhou and Punit Singh Koura and Brian O'Horo and Jeff Wang and Luke Zettlemoyer and Mona Diab and Zornitsa Kozareva and Ves Stoyanov},
+      year={2022},
+      eprint={2112.10684},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2112.10684}, 
+}
+
+
+%%
+@ARTICLE{llm-gpt-reasoning,
+  title    = "Human-like intuitive behavior and reasoning biases emerged in
+              large language models but disappeared in {ChatGPT}",
+  author   = "Hagendorff, Thilo and Fabi, Sarah and Kosinski, Michal",
+  abstract = "We design a battery of semantic illusions and cognitive
+              reflection tests, aimed to elicit intuitive yet erroneous
+              responses. We administer these tasks, traditionally used to study
+              reasoning and decision-making in humans, to OpenAI's generative
+              pre-trained transformer model family. The results show that as
+              the models expand in size and linguistic proficiency they
+              increasingly display human-like intuitive system 1 thinking and
+              associated cognitive errors. This pattern shifts notably with the
+              introduction of ChatGPT models, which tend to respond correctly,
+              avoiding the traps embedded in the tasks. Both ChatGPT-3.5 and 4
+              utilize the input--output context window to engage in
+              chain-of-thought reasoning, reminiscent of how people use
+              notepads to support their system 2 thinking. Yet, they remain
+              accurate even when prevented from engaging in chain-of-thought
+              reasoning, indicating that their system-1-like next-word
+              generation processes are more accurate than those of older
+              models. Our findings highlight the value of applying
+              psychological methodologies to study large language models, as
+              this can uncover previously undetected emergent characteristics.",
+  journal  = "Nature Computational Science",
+  volume   =  3,
+  number   =  10,
+  pages    = "833--838",
+  month    =  oct,
+  year     =  2023
+}
+
+
+%%
+@misc{anthropic-reasoning-paper,
+  title={Reasoning Models Don't Always Say What They Think}, 
+  author={Yanda Chen and Joe Benton and Ansh Radhakrishnan and Jonathan Uesato and Carson Denison and John Schulman and Arushi Somani and Peter Hase and Misha Wagner and Fabien Roger and Vlad Mikulik and Samuel R. Bowman and Jan Leike and Jared Kaplan and Ethan Perez},
+  year={2025},
+  eprint={2505.05410},
+  archivePrefix={arXiv},
+  primaryClass={cs.CL},
+  url={https://arxiv.org/abs/2505.05410}, 
+}
+
+%%
+@article{information-extraction,
+author = {Cowie, Jim and Lehnert, Wendy},
+title = {Information extraction},
+year = {1996},
+issue_date = {Jan. 1996},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {39},
+number = {1},
+issn = {0001-0782},
+url = {https://doi.org/10.1145/234173.234209},
+doi = {10.1145/234173.234209},
+journal = {Commun. ACM},
+month = jan,
+pages = {80–91},
+numpages = {12}
+}
+
+%%
+@misc{rag-vs-lc-eval,
+      title={Long Context vs. RAG for LLMs: An Evaluation and Revisits}, 
+      author={Xinze Li and Yixin Cao and Yubo Ma and Aixin Sun},
+      year={2024},
+      eprint={2501.01880},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2501.01880}, 
+}
+
+%%
+@article{eval-metrics,
+author = {Powers, David and Ailab,},
+year = {2011},
+month = {01},
+pages = {2229-3981},
+title = {Evaluation: From precision, recall and F-measure to ROC, informedness, markedness \& correlation},
+volume = {2},
+journal = {J. Mach. Learn. Technol},
+doi = {10.9735/2229-3981}
+}
+
+%%
+@article{ocr,
+author = {Wang, Junmiao},
+year = {2023},
+month = {12},
+pages = {409-415},
+title = {A Study of The OCR Development History and Directions of Development},
+volume = {72},
+journal = {Highlights in Science, Engineering and Technology},
+doi = {10.54097/bm665j77}
+}
+
+%%
+@INPROCEEDINGS{regex-relation-clinical,
+  author={G, Veena and R, Hemanth and Hareesh, Jithin},
+  booktitle={2019 2nd International Conference on Intelligent Computing, Instrumentation and Control Technologies (ICICICT)}, 
+  title={Relation Extraction in Clinical Text using NLP Based Regular Expressions}, 
+  year={2019},
+  volume={1},
+  number={},
+  pages={1278-1282},
+  keywords={Relation extraction;Regular expressions;Part-of-Speech tagging;Path similarity;NLP},
+  doi={10.1109/ICICICT46008.2019.8993274}}
+
+% ====================================
+% ========== WEBY ====================
+% ====================================
+
+@online{claude-platform-context-windows,
+	author = {{Anthropic}},
+	title = {Context windows},
+	url = {https://platform.claude.com/docs/en/build-with-claude/context-windows},
+  urldate = {2026-01-27}
+}
+
+@online{chomsky-wiki,
+  author = {{Wikipedie}},
+  title = {Noam Chomsky --- Wikipedie: Otevřená encyklopedie},
+  year = {2025},
+  url = {https://cs.wikipedia.org/w/index.php?title=Noam_Chomsky&oldid=25652333},
+  urldate = {2025-11-30}
+}
+
+@online{openai-platform-docs-text,
+	author = {{OpenAI}},
+	title = {Text generation},
+	url = {https://platform.openai.com/docs/guides/text},
+	urldate = {2025-11-30},
+}
+
+@online{chomskybot,
+	title = {The ChomskyBot},
+  author = {{John Lawler}},
+	url = {http://www.chomskybot.com/cgi-bin/chomsky.pl},
+  date = {1998-09-25},
+	urldate = {2025-11-30},
+}
+
+@online{openai-platform-models,
+	author = {{OpenAI}},
+	title = {Models},
+	url = {https://platform.openai.com/docs/models},
+	urldate = {2025-11-30},
+}
+
+@online{openai-platform-migrate-responses,
+	author = {{OpenAI}},
+	title = {Migrate to the Responses API},
+	url = {https://platform.openai.com/docs/guides/migrate-to-responses},
+	urldate = {2026-01-19},
+}
+
+@online{mistral-temperature,
+  author = {{Mistral AI}},
+  title = {Sampling},
+  url = {https://docs.mistral.ai/models/best-practices/sampling},
+  urldate = {2026-01-19}
+}
+
+% ======= STRUKTUROVANÉ VÝSTUPY =========
+
+@online{ollama-structured,
+	author = {{Ollama}},
+	title = {Structured Outputs},
+	url = {https://docs.ollama.com/capabilities/structured-outputs},
+	urldate = {2026-01-19},
+}
+
+@online{openai-structured,
+	author = {{OpenAI}},
+	title = {Structured model outputs},
+	url = {https://developers.openai.com/api/docs/guides/structured-outputs},
+	urldate = {2026-01-19},
+}
+
+@online{mistral-structured,
+	author = {{Mistral AI}},
+	title = {Chat Endpoints},
+	url = {https://docs.mistral.ai/api},
+	urldate = {2026-01-19},
+}
+
+% ====== KNIHOVNY ======
+@software{pdfplumber,
+author = {Singer-Vine, Jeremy and {The pdfplumber contributors}},
+license = {MIT},
+month = jan,
+title = {{pdfplumber}},
+url = {https://github.com/jsvine/pdfplumber},
+version = {0.11.9},
+year = {2026}
+}
+
+@software{streamlit,
+	author = {{Snowflake}},
+	title = {Streamlit},
+	version = {1.55.0},
+	year = {2026},
+  url = {https://streamlit.io/},
+	urldate = {2026-03-28},
+}
+
+@software{streamlit-pdf,
+	author = {{ScienciaLAB}},
+	title = {streamlit-pdf-viewer},
+  version = {0.0.28},
+	year = {2026},
+	url = {https://github.com/ScienciaLAB/streamlit-pdf-viewer},
+	urldate = {2026-03-28},
+}
+
+@software{pydantic,
+	author = {{pydantic}},
+	title = {pydantic},
+  version = {2.12.5},
+	year = {2025},
+	url = {https://github.com/pydantic/pydantic/},
+	urldate = {2026-03-28},
+}
+
+@software{tqdm,
+  author = {{tqdm}},
+  title = {tqdm},
+  version = {4.67.3},
+  year = {2026},
+  url = {https://github.com/tqdm/tqdm},
+  urldate = {2026-03-28}
+}
+
+@software{pypdfium,
+  author = {{pypdfium2-team}},
+  title = {pypdfium2},
+  version = {5.6.0},
+  year = {2026},
+  url = {https://github.com/pypdfium2-team/pypdfium2},
+  urldate = {2026-03-28}
+}
+
+@software{pylint,
+author = {{Pylint contributors}},
+license = {GPL-2.0},
+title = {{Pylint}},
+version = {4.0.5},
+year = {2026},
+url = {https://github.com/pylint-dev/pylint},
+urldate = {2026-03-28}
+}
+
+@software{pdoc,
+author = {{mitmproxy}},
+title = {pdoc},
+version = {16.0.0},
+year = {2025},
+url = {https://github.com/mitmproxy/pdoc},
+urldate = {2026-05-03}
+}
+
+% ====== NÁSTROJE ======
+@software{pbi,
+  author = {{Microsoft Corporation}},
+  title = {Microsoft Power BI Desktop},
+  version = {2.140.0}, 
+  year = {2026},
+  url = {https://powerbi.microsoft.com/desktop/},
+  urldate = {2026-04-03}
+}
+
+@software{sqlite,
+  author = {{SQLite}},
+  title = {SQLite},
+  version = {3.50.2},
+  url = {https://sqlite.org/},
+  urldate={2026-03-28}
+}
+
+% ====== DATASETY ======
+@online{doc-hra,
+	author = {{Sara Farag}},
+	title = {Software Requirements Specification WebGL Card Game Platform},
+	url = {https://www.bellevuecollege.edu/wp-content/uploads/sites/135/2019/04/SRS_WebGLGame.pdf},
+  organization = {Bellevue College},
+  version = {1.3},
+  date = {2019-03-15},
+	urldate = {2026-04-03},
+}
+
+@techreport{doc-nis,
+	author = {{Vojenská nemocnice Brno}},
+  institution = {{Vojenská nemocnice Brno}},
+	title = {VN Brno – nemocniční informační systém},
+  type = {Specifikace požadavků},
+	url = {https://nen.nipez.cz/Soubor.aspx?id=2471203647&typ=.zip&velikost=7999735B},
+  date = {2024-10-22},
+	urldate = {2026-04-03},
+}
+
+% ====== MODELY ======
+
+@software{llm-gptnano,
+	author = {{OpenAI}},
+	title = {GPT-5.4 nano},
+  version = {gpt-5.4-nano-2026-03-17},
+  date = {2026-03-17},
+	url = {https://developers.openai.com/api/docs/models/gpt-5.4-nano},
+	urldate = {2026-04-03}
+}
+
+@software{llm-mistral,
+	author = {{Mistral AI}},
+	title = {Mistral Large 3},
+	date = {2025-12-02},
+  version = {mistral-large-2512},
+  url = {https://docs.mistral.ai/models/model-cards/mistral-large-3-25-12},
+	urldate = {2026-04-03}
+}
+
+@software{llm-llama,
+	author = {{Ollama}},
+	title = {llama3.2:latest},
+	url = {https://ollama.com/library/llama3.2:latest},
+	urldate = {2026-04-03},
+}
+
+@software{llm-gpt4o,
+	author = {{OpenAI}},
+	title = {GPT-4o},
+  version = {gpt-4o-2024-11-20},
+  date = {2024-11-20},
+	url = {https://developers.openai.com/api/docs/models/gpt-4o},
+	urldate = {2026-04-03},
+}
+
+% ==  CENY ==
+@online{mistral-api-pricing,
+	author = {{Mistral AI}},
+	title = {Pricing},
+	url = {https://mistral.ai/pricing/#api},
+	urldate = {2026-04-17},
+}
+
+@online{kurz,
+	author = {{Kurzy.cz} and {AliaWeb}},
+	title = {USD, americký dolar - převod měn na CZK, českou korunu},
+	url = {https://www.kurzy.cz/kurzy-men/prevodnik-men/USD-CZK/},
+	urldate = {2026-04-17},
+}
+
+@online{gpt-api-pricing,
+	author = {{OpenAI}},
+	title = {API Pricing},
+	url = {https://openai.com/api/pricing/},
+	urldate = {2026-04-17},
+}

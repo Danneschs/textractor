@@ -1,0 +1,100 @@
+table EXTRACTION_RUN
+	lineageTag: bb7a0b0d-73da-4780-9d48-eda6fab47071
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: c79192e2-f3dc-4c8e-943b-f5164028aa10
+		summarizeBy: none
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column document_id
+		dataType: int64
+		formatString: 0
+		lineageTag: bd357ea9-d029-4ffb-b1ee-b375d8012b64
+		summarizeBy: none
+		sourceColumn: document_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column prompt_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 92064fc7-fd34-4501-80e7-73d30200f8c5
+		summarizeBy: none
+		sourceColumn: prompt_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column model_id
+		dataType: int64
+		formatString: 0
+		lineageTag: b7d8c69d-bd99-4b50-b1bd-a9ab1b82f806
+		summarizeBy: none
+		sourceColumn: model_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column extracted_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 46f776ee-b10e-4c63-b766-551171723675
+		summarizeBy: none
+		sourceColumn: extracted_at
+
+		variation Variace
+			isDefault
+			relationship: fc60edef-09c6-4605-ae95-9c3a30d4cbb0
+			defaultHierarchy: LocalDateTable_cb630028-8cf8-4df6-9229-1199c034d67f.'Hierarchie dat'
+
+		annotation SummarizationSetBy = Automatic
+
+	column duration_ms
+		dataType: int64
+		formatString: 0
+		lineageTag: 1df4108f-2a97-4def-a242-b51a118892bb
+		summarizeBy: sum
+		sourceColumn: duration_ms
+
+		annotation SummarizationSetBy = Automatic
+
+	column input_tokens
+		dataType: int64
+		formatString: 0
+		lineageTag: fa9e8a96-5e6a-48ca-bbbb-ab55fa5459ee
+		summarizeBy: sum
+		sourceColumn: input_tokens
+
+		annotation SummarizationSetBy = Automatic
+
+	column output_tokens
+		dataType: int64
+		formatString: 0
+		lineageTag: 67c5815f-282b-41b4-a969-36cf297ab50f
+		summarizeBy: sum
+		sourceColumn: output_tokens
+
+		annotation SummarizationSetBy = Automatic
+
+	partition EXTRACTION_RUN = m
+		mode: import
+		source =
+				let
+				    Zdroj = Python.Execute("import sqlite3#(lf)#(lf)import pandas as pd#(lf)#(lf)#(lf)conn = sqlite3.connect(r'D:\PIS\powerbi\projects\bonus\database.db')#(lf)#(lf)#(lf)EXTRACTED_TEXT_EVAL = pd.read_sql_query(""SELECT * FROM EXTRACTED_TEXT_EVAL"", conn)#(lf)#(lf)ANALYZED_TEXT_EVAL = pd.read_sql_query(""SELECT * FROM ANALYZED_TEXT_EVAL"", conn)#(lf)#(lf)DOCUMENT = pd.read_sql_query(""SELECT * FROM DOCUMENT"", conn)#(lf)#(lf)MODEL = pd.read_sql_query(""SELECT * FROM MODEL"", conn)#(lf)#(lf)PROMPT = pd.read_sql_query(""SELECT * FROM PROMPT"", conn)#(lf)#(lf)EXTRACTION_RUN = pd.read_sql_query(""SELECT * FROM EXTRACTION_RUN"", conn)#(lf)#(lf)EXTRACTED_TEXT = pd.read_sql_query(""SELECT * FROM EXTRACTED_TEXT"", conn)#(lf)#(lf)ANALYZED_TEXT = pd.read_sql_query(""SELECT * FROM ANALYZED_TEXT"", conn)#(lf)#(lf)#(lf)#(lf)conn.close()"),
+				    EXTRACTION_RUN1 = Zdroj{[Name="EXTRACTION_RUN"]}[Value],
+				    #"Změněný typ" = Table.TransformColumnTypes(EXTRACTION_RUN1,{{"id", Int64.Type}, {"document_id", Int64.Type}, {"prompt_id", Int64.Type}, {"model_id", Int64.Type}, {"extracted_at", type datetime}, {"duration_ms", type text}, {"input_tokens", type text}, {"output_tokens", type text}}),
+				    #"Nahrazená hodnota" = Table.ReplaceValue(#"Změněný typ",".0","",Replacer.ReplaceText,{"duration_ms"}),
+				    #"Změněný typ1" = Table.TransformColumnTypes(#"Nahrazená hodnota",{{"duration_ms", Int64.Type}}),
+				    #"Nahrazená hodnota1" = Table.ReplaceValue(#"Změněný typ1",".0","",Replacer.ReplaceText,{"input_tokens"}),
+				    #"Změněný typ2" = Table.TransformColumnTypes(#"Nahrazená hodnota1",{{"input_tokens", Int64.Type}}),
+				    #"Nahrazená hodnota2" = Table.ReplaceValue(#"Změněný typ2",".0","",Replacer.ReplaceText,{"output_tokens"}),
+				    #"Změněný typ3" = Table.TransformColumnTypes(#"Nahrazená hodnota2",{{"output_tokens", Int64.Type}})
+				in
+				    #"Změněný typ3"
+
+	annotation PBI_NavigationStepName = Navigace
+
+	annotation PBI_ResultType = Table
+

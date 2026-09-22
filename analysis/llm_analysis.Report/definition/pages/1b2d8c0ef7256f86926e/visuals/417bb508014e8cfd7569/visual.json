@@ -1,0 +1,96 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "417bb508014e8cfd7569",
+  "position": {
+    "x": 641.13274336283189,
+    "y": 0,
+    "z": 5000,
+    "height": 139.32743362831857,
+    "width": 319.43362831858406,
+    "tabOrder": 5000
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Akceptovatelná přesnost ve formalizační fázi"
+                    }
+                  },
+                  "Property": "Akceptovatelná přesnost ve formalizační fázi"
+                }
+              },
+              "queryRef": "Akceptovatelná přesnost ve formalizační fázi.Akceptovatelná přesnost ve formalizační fázi",
+              "nativeQueryRef": "Akceptovatelná přesnost ve formalizační fázi",
+              "active": true
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "data": [
+        {
+          "properties": {
+            "numericStart": {
+              "expr": {
+                "Literal": {
+                  "Value": "0.8100000000000006D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {
+            "filter": {
+              "filter": {
+                "Version": 2,
+                "From": [
+                  {
+                    "Name": "a",
+                    "Entity": "Akceptovatelná přesnost ve formalizační fázi",
+                    "Type": 0
+                  }
+                ],
+                "Where": [
+                  {
+                    "Condition": {
+                      "Comparison": {
+                        "ComparisonKind": 0,
+                        "Left": {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Source": "a"
+                              }
+                            },
+                            "Property": "Akceptovatelná přesnost ve formalizační fázi"
+                          }
+                        },
+                        "Right": {
+                          "Literal": {
+                            "Value": "0.8100000000000006D"
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

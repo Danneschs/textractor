@@ -1,0 +1,168 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "b09443f620cb60d25150",
+  "position": {
+    "x": 0,
+    "y": 0,
+    "z": 0,
+    "height": 720,
+    "width": 1280,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DOCUMENT"
+                    }
+                  },
+                  "Property": "filename"
+                }
+              },
+              "queryRef": "DOCUMENT.filename",
+              "nativeQueryRef": "filename",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DIM_MODEL_ANALYSIS"
+                    }
+                  },
+                  "Property": "name"
+                }
+              },
+              "queryRef": "DIM_MODEL_ANALYSIS.name",
+              "nativeQueryRef": "name",
+              "active": true
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "MODEL_PRICE"
+                    }
+                  },
+                  "Property": "Průměrný čas formalizace modelů za požadavek (s)"
+                }
+              },
+              "queryRef": "MODEL_PRICE.Průměrný čas formalizace modelů za požadavek (s)",
+              "nativeQueryRef": "Průměrný čas formalizace modelů za požadavek (s)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "MODEL_PRICE"
+                    }
+                  },
+                  "Property": "Průměrná cena formalizace za kus (CZK)"
+                }
+              },
+              "queryRef": "MODEL_PRICE.Průměrná cena formalizace za kus (CZK)",
+              "nativeQueryRef": "Průměrná cena formalizace za kus (CZK)",
+              "format": "0.0000000"
+            }
+          ]
+        }
+      }
+    },
+    "expansionStates": [
+      {
+        "roles": [
+          "Rows"
+        ],
+        "levels": [
+          {
+            "queryRefs": [
+              "DOCUMENT.filename"
+            ],
+            "isCollapsed": true,
+            "identityKeys": [
+              {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DOCUMENT"
+                    }
+                  },
+                  "Property": "filename"
+                }
+              }
+            ],
+            "isPinned": true
+          },
+          {
+            "queryRefs": [
+              "DIM_MODEL_ANALYSIS.name"
+            ],
+            "isCollapsed": true,
+            "isPinned": true
+          }
+        ],
+        "root": {
+          "children": [
+            {
+              "identityValues": [
+                {
+                  "Literal": {
+                    "Value": "'Nemocnicni IS 2025 - TECHNICKA SPECIFIKACE.pdf'"
+                  }
+                }
+              ],
+              "isToggled": true
+            },
+            {
+              "identityValues": [
+                {
+                  "Literal": {
+                    "Value": "'SRS_WebGLGame.pdf'"
+                  }
+                }
+              ],
+              "isToggled": true
+            }
+          ]
+        }
+      }
+    ],
+    "objects": {
+      "subTotals": [
+        {
+          "properties": {
+            "columnSubtotals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "rowSubtotals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

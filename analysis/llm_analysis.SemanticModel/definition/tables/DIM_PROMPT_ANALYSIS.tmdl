@@ -1,0 +1,40 @@
+table DIM_PROMPT_ANALYSIS
+	lineageTag: 3d877c27-0581-42ce-b0f1-f76264a8794d
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: 8567dde0-6280-4cea-99e0-97143f5c81de
+		summarizeBy: none
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: 027f5fe2-b2cd-49dd-9295-2105ab0299f6
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column value
+		dataType: string
+		lineageTag: aa9947e9-e6c8-4a41-96e3-c8fadc1f1edb
+		summarizeBy: none
+		sourceColumn: value
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DIM_PROMPT_ANALYSIS = m
+		mode: import
+		source =
+				let
+				    Zdroj = PROMPT
+				in
+				    Zdroj
+
+	annotation PBI_NavigationStepName = Navigace
+
+	annotation PBI_ResultType = Table
+

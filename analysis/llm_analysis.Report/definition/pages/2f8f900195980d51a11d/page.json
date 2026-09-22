@@ -1,0 +1,9 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "2f8f900195980d51a11d",
+  "displayName": "DF_bod_recall_precision_hra",
+  "displayOption": "ActualSize",
+  "height": 1755,
+  "width": 2480,
+  "visibility": "HiddenInViewMode"
+}

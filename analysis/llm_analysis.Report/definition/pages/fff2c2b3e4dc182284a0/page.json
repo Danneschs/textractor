@@ -1,0 +1,9 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "fff2c2b3e4dc182284a0",
+  "displayName": "DF_pruh_správné_chybné_hra",
+  "displayOption": "ActualSize",
+  "height": 1755,
+  "width": 2480,
+  "visibility": "HiddenInViewMode"
+}

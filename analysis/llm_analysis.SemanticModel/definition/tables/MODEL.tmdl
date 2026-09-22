@@ -1,0 +1,34 @@
+table MODEL
+	lineageTag: 0ed67c9f-1e17-4305-9bef-bb3faf8a85a7
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: 47db2706-ff5a-496d-8dac-fe8323614245
+		summarizeBy: none
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: 74e78866-a18f-42c4-b4ae-eb227f48c675
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition MODEL = m
+		mode: import
+		source =
+				let
+				    Zdroj = Python.Execute("import sqlite3#(lf)#(lf)import pandas as pd#(lf)#(lf)#(lf)conn = sqlite3.connect(r'D:\PIS\powerbi\projects\bonus\database.db')#(lf)#(lf)#(lf)EXTRACTED_TEXT_EVAL = pd.read_sql_query(""SELECT * FROM EXTRACTED_TEXT_EVAL"", conn)#(lf)#(lf)ANALYZED_TEXT_EVAL = pd.read_sql_query(""SELECT * FROM ANALYZED_TEXT_EVAL"", conn)#(lf)#(lf)DOCUMENT = pd.read_sql_query(""SELECT * FROM DOCUMENT"", conn)#(lf)#(lf)MODEL = pd.read_sql_query(""SELECT * FROM MODEL"", conn)#(lf)#(lf)PROMPT = pd.read_sql_query(""SELECT * FROM PROMPT"", conn)#(lf)#(lf)EXTRACTION_RUN = pd.read_sql_query(""SELECT * FROM EXTRACTION_RUN"", conn)#(lf)#(lf)EXTRACTED_TEXT = pd.read_sql_query(""SELECT * FROM EXTRACTED_TEXT"", conn)#(lf)#(lf)ANALYZED_TEXT = pd.read_sql_query(""SELECT * FROM ANALYZED_TEXT"", conn)#(lf)#(lf)#(lf)#(lf)conn.close()"),
+				    MODEL1 = Zdroj{[Name="MODEL"]}[Value],
+				    #"Změněný typ" = Table.TransformColumnTypes(MODEL1,{{"id", Int64.Type}, {"name", type text}})
+				in
+				    #"Změněný typ"
+
+	annotation PBI_NavigationStepName = Navigace
+
+	annotation PBI_ResultType = Table
+

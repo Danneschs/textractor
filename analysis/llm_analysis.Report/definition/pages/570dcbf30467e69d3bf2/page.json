@@ -1,0 +1,20 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "570dcbf30467e69d3bf2",
+  "displayName": "Poměr ceny a kvality v extrakční fázi",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "visualInteractions": [
+    {
+      "source": "8a67937989cfa5ff4857",
+      "target": "1958e7d575777a87e392",
+      "type": "NoFilter"
+    },
+    {
+      "source": "8a67937989cfa5ff4857",
+      "target": "23549e548a4db3b9994e",
+      "type": "NoFilter"
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+table LocalDateTable_cb630028-8cf8-4df6-9229-1199c034d67f
+	isHidden
+	showAsVariationsOnly
+	lineageTag: f3ab475b-0fb4-4697-897d-5384d1c45197
+
+	column Date
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: 5baf1587-2c64-46c9-88f1-d6752e821a8e
+		dataCategory: PaddedDateTableDates
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = User
+
+	column Rok = YEAR([Date])
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: e89dd2a8-38a4-4c3f-be7d-196e4d96878d
+		dataCategory: Years
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = Year
+
+	column MonthNo = MONTH([Date])
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 8cd76060-890b-481d-af0f-423cf46f65fa
+		dataCategory: MonthOfYear
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = MonthNumber
+
+	column Měsíc = FORMAT([Date], "MMMM")
+		dataType: string
+		isHidden
+		lineageTag: 13c93568-5fe1-444c-a904-56d9e7751bc1
+		dataCategory: Months
+		summarizeBy: none
+		sortByColumn: MonthNo
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = Month
+
+	column QuarterNo = INT(([MonthNo] + 2) / 3)
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 3fa5c100-a828-4658-9ba7-57b40a60e86a
+		dataCategory: QuarterOfYear
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = QuarterNumber
+
+	column Čtvrtletí = "Qtr " & [QuarterNo]
+		dataType: string
+		isHidden
+		lineageTag: 0ffd0a6e-c67a-4902-bc47-5a0de1d54618
+		dataCategory: Quarters
+		summarizeBy: none
+		sortByColumn: QuarterNo
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = Quarter
+
+	column Den = DAY([Date])
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 2671f680-7aa5-47ca-ade0-9ec22cc32803
+		dataCategory: DayOfMonth
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = Day
+
+	hierarchy 'Hierarchie dat'
+		lineageTag: 6b09573e-599f-4453-9c64-26b12f5cefc3
+
+		level Rok
+			lineageTag: f3953f0d-71fd-45c5-9a07-0cd5a96344f6
+			column: Rok
+
+		level Čtvrtletí
+			lineageTag: d72a2862-e9a6-4ee9-8754-e6490510bfac
+			column: Čtvrtletí
+
+		level Měsíc
+			lineageTag: 3951ea61-0b0e-4b38-9458-953e583e4d7d
+			column: Měsíc
+
+		level Den
+			lineageTag: 23154fa7-cda2-4281-8c5f-07a62a05bfb7
+			column: Den
+
+		annotation TemplateId = DateHierarchy
+
+	partition LocalDateTable_cb630028-8cf8-4df6-9229-1199c034d67f = calculated
+		mode: import
+		source = Calendar(Date(Year(MIN('EXTRACTION_RUN'[extracted_at])), 1, 1), Date(Year(MAX('EXTRACTION_RUN'[extracted_at])), 12, 31))
+
+	annotation __PBI_LocalDateTable = true
+

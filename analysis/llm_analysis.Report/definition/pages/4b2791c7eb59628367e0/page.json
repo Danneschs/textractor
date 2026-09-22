@@ -1,0 +1,9 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "4b2791c7eb59628367e0",
+  "displayName": "DF_pruh_správné_chybné_nis",
+  "displayOption": "ActualSize",
+  "height": 1755,
+  "width": 2480,
+  "visibility": "HiddenInViewMode"
+}

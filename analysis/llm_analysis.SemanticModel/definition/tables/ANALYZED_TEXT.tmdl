@@ -1,0 +1,126 @@
+table ANALYZED_TEXT
+	lineageTag: 5d2b4074-bce4-470d-a586-3a3211cf3181
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: 20d766f6-47ee-498d-bfc3-9c12750d974c
+		summarizeBy: none
+		sourceColumn: id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column extracted_text_id
+		dataType: int64
+		formatString: 0
+		lineageTag: acd5774f-e127-45cb-a219-8cd406ea3a93
+		summarizeBy: none
+		sourceColumn: extracted_text_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column prompt_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 02d70f18-e9ff-426e-98c8-5dd5af1529af
+		summarizeBy: none
+		sourceColumn: prompt_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column model_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 1d33f820-4d71-45f8-a873-d6f43808aa80
+		summarizeBy: none
+		sourceColumn: model_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column analyzed_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: ea8221e0-5a49-4055-909a-95e658a23174
+		summarizeBy: none
+		sourceColumn: analyzed_at
+
+		variation Variace
+			isDefault
+			relationship: f97a5ed6-20e4-4cf9-8d5b-0ecf17e471a3
+			defaultHierarchy: LocalDateTable_6bbedc92-2fea-433c-a55e-47152247db44.'Hierarchie dat'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column result
+		dataType: string
+		lineageTag: 160b7290-1004-448a-b234-8030851310fa
+		summarizeBy: none
+		sourceColumn: result
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column duration_ms
+		dataType: int64
+		formatString: 0
+		lineageTag: 3f45a3ca-c57d-4e31-8d8a-06001c5bb611
+		summarizeBy: sum
+		sourceColumn: duration_ms
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column input_tokens
+		dataType: int64
+		formatString: 0
+		lineageTag: 93bf1d03-3663-4c72-94d6-c9deee7e64ef
+		summarizeBy: sum
+		sourceColumn: input_tokens
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column output_tokens
+		dataType: int64
+		formatString: 0
+		lineageTag: 36e886cd-f812-490b-8329-315d3ec0bd88
+		summarizeBy: sum
+		sourceColumn: output_tokens
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition ANALYZED_TEXT = m
+		mode: import
+		source =
+				let
+				    Zdroj = Python.Execute("import sqlite3#(lf)#(lf)import pandas as pd#(lf)#(lf)#(lf)conn = sqlite3.connect(r'D:\PIS\powerbi\projects\bonus\database.db')#(lf)#(lf)#(lf)EXTRACTED_TEXT_EVAL = pd.read_sql_query(""SELECT * FROM EXTRACTED_TEXT_EVAL"", conn)#(lf)#(lf)ANALYZED_TEXT_EVAL = pd.read_sql_query(""SELECT * FROM ANALYZED_TEXT_EVAL"", conn)#(lf)#(lf)DOCUMENT = pd.read_sql_query(""SELECT * FROM DOCUMENT"", conn)#(lf)#(lf)MODEL = pd.read_sql_query(""SELECT * FROM MODEL"", conn)#(lf)#(lf)PROMPT = pd.read_sql_query(""SELECT * FROM PROMPT"", conn)#(lf)#(lf)EXTRACTION_RUN = pd.read_sql_query(""SELECT * FROM EXTRACTION_RUN"", conn)#(lf)#(lf)EXTRACTED_TEXT = pd.read_sql_query(""SELECT * FROM EXTRACTED_TEXT"", conn)#(lf)#(lf)ANALYZED_TEXT = pd.read_sql_query(""SELECT * FROM ANALYZED_TEXT"", conn)#(lf)#(lf)#(lf)#(lf)conn.close()"),
+				    ANALYZED_TEXT1 = Zdroj{[Name="ANALYZED_TEXT"]}[Value],
+				    #"Změněný typ" = Table.TransformColumnTypes(ANALYZED_TEXT1,{{"id", Int64.Type}, {"extracted_text_id", Int64.Type}, {"prompt_id", Int64.Type}, {"model_id", Int64.Type}, {"analyzed_at", type datetime}, {"result", type text}, {"duration_ms", type text}, {"input_tokens", type text}, {"output_tokens", type text}}),
+				    #"Nahrazená hodnota" = Table.ReplaceValue(#"Změněný typ",".0","",Replacer.ReplaceText,{"duration_ms"}),
+				    #"Nahrazená hodnota1" = Table.ReplaceValue(#"Nahrazená hodnota",".0","",Replacer.ReplaceText,{"input_tokens"}),
+				    #"Nahrazená hodnota2" = Table.ReplaceValue(#"Nahrazená hodnota1",".0","",Replacer.ReplaceText,{"output_tokens"}),
+				    #"Změněný typ1" = Table.TransformColumnTypes(#"Nahrazená hodnota2",{{"duration_ms", Int64.Type}, {"input_tokens", Int64.Type}, {"output_tokens", Int64.Type}})
+				in
+				    #"Změněný typ1"
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Navigace
+
+	annotation PBI_ResultType = Table
+

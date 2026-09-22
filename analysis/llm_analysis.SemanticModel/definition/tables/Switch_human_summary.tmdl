@@ -1,0 +1,22 @@
+table Switch_human_summary
+	lineageTag: 60fac0e9-c908-4d86-a396-b19e80c190aa
+
+	column Show_human
+		dataType: string
+		lineageTag: 8523267c-cd8d-4db4-b555-60267c525976
+		summarizeBy: none
+		sourceColumn: Show_human
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Switch_human_summary = m
+		mode: import
+		source =
+				let
+				    Zdroj = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WcszLV4rViVbyS1WKjQUA", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Show_human = _t]),
+				    #"Změněný typ" = Table.TransformColumnTypes(Zdroj,{{"Show_human", type text}})
+				in
+				    #"Změněný typ"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,229 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 8.8578049999999724
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 0,
+            "y": 973.70618777283948
+          },
+          "nodeIndex": "ANALYZED_TEXT",
+          "nodeLineageTag": "5d2b4074-bce4-470d-a586-3a3211cf3181",
+          "size": {
+            "height": 384.57804999999985,
+            "width": 234
+          },
+          "zIndex": 14
+        },
+        {
+          "location": {
+            "x": 1158.1623212439158,
+            "y": 1011.053960399312
+          },
+          "nodeIndex": "ANALYZED_TEXT_EVAL",
+          "nodeLineageTag": "7da5fe55-a946-4dbf-8b59-1a3cb588e39f",
+          "size": {
+            "height": 224,
+            "width": 389.89736799999957
+          },
+          "zIndex": 10
+        },
+        {
+          "location": {
+            "x": 96.447990628683925,
+            "y": 0
+          },
+          "nodeIndex": "DOCUMENT",
+          "nodeLineageTag": "7528291b-fcc8-4025-bf2b-a660810c8c50",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 924.74364448344556,
+            "y": 532.61298315985
+          },
+          "nodeIndex": "EXTRACTED_TEXT",
+          "nodeLineageTag": "d4734a99-3602-42cb-b329-111f37303a19",
+          "size": {
+            "height": 261.83678200000008,
+            "width": 234
+          },
+          "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 1333.9854329999962,
+            "y": 357.95725506956563
+          },
+          "nodeIndex": "EXTRACTED_TEXT_EVAL",
+          "nodeLineageTag": "04c6cda0-74c6-4d38-ae82-8e444b638783",
+          "size": {
+            "height": 538.536003999999,
+            "width": 404.06985599999939
+          },
+          "zIndex": 15
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 529.69673899999839
+          },
+          "nodeIndex": "EXTRACTION_RUN",
+          "nodeLineageTag": "bb7a0b0d-73da-4780-9d48-eda6fab47071",
+          "size": {
+            "height": 385.37990399999967,
+            "width": 271.2027809999999
+          },
+          "zIndex": 9
+        },
+        {
+          "location": {
+            "x": 726.34000999999762,
+            "y": 305.63865593777467
+          },
+          "nodeIndex": "MODEL",
+          "nodeLineageTag": "0ed67c9f-1e17-4305-9bef-bb3faf8a85a7",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 12
+        },
+        {
+          "location": {
+            "x": 335.52683959382551,
+            "y": 314.32451060856721
+          },
+          "nodeIndex": "PROMPT",
+          "nodeLineageTag": "56682de4-b9e5-471e-ae1a-4c688d28c755",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 13
+        },
+        {
+          "location": {
+            "x": 582.63492554937113,
+            "y": 858.526573389801
+          },
+          "nodeIndex": "DIM_MODEL_ANALYSIS",
+          "nodeLineageTag": "c82e5f72-34fb-4b26-b8bd-2eba3b38b2b1",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 323.13524127370016,
+            "y": 867.55657068352411
+          },
+          "nodeIndex": "DIM_PROMPT_ANALYSIS",
+          "nodeLineageTag": "3d877c27-0581-42ce-b0f1-f76264a8794d",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 11
+        },
+        {
+          "location": {
+            "x": 1138.6928360186919,
+            "y": 8.8578049999999742
+          },
+          "nodeIndex": "MODEL_PRICE",
+          "nodeLineageTag": "117375df-50d2-40ff-aaea-7bae03882351",
+          "size": {
+            "height": 245.89273299999974,
+            "width": 216.28439000000003
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 719.35904847585471,
+            "y": 35.5775868201368
+          },
+          "nodeIndex": "HUMAN_COST",
+          "nodeLineageTag": "203f0364-27e1-443c-ab08-597e509e7abd",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 2257.4607131719913,
+            "y": 105.25606503478321
+          },
+          "nodeIndex": "Akceptovatelné F1 skóre v extrakční fázi",
+          "nodeLineageTag": "87c3ca92-a267-4525-8b76-fae1676efa70",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 2516.6700566885424,
+            "y": 108.79918703478313
+          },
+          "nodeIndex": "Akceptovatelná přesnost ve formalizační fázi",
+          "nodeLineageTag": "75df58c1-83fb-45f8-a865-36cf2b333bd5",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 2379.049736205096,
+            "y": 376.07182403478254
+          },
+          "nodeIndex": "Switch_human_summary",
+          "nodeLineageTag": "60fac0e9-c908-4d86-a396-b19e80c190aa",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 2800.6700566885424,
+            "y": 579.14211888641967
+          },
+          "nodeIndex": "SPOLECNE_MODELY",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Všechny tabulky",
+      "zoomValue": 56.447393005377918,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Všechny tabulky",
+  "defaultDiagram": "Všechny tabulky"
+}

@@ -1,0 +1,59 @@
+relationship f97a5ed6-20e4-4cf9-8d5b-0ecf17e471a3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: ANALYZED_TEXT.analyzed_at
+	toColumn: LocalDateTable_6bbedc92-2fea-433c-a55e-47152247db44.Date
+
+relationship f01c50db-854a-442f-9158-5fca8775572d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DOCUMENT.upload_date
+	toColumn: LocalDateTable_da0b0f88-6dec-4662-b9cc-e58f50edcf7b.Date
+
+relationship fc60edef-09c6-4605-ae95-9c3a30d4cbb0
+	joinOnDateBehavior: datePartOnly
+	fromColumn: EXTRACTION_RUN.extracted_at
+	toColumn: LocalDateTable_cb630028-8cf8-4df6-9229-1199c034d67f.Date
+
+relationship AutoDetected_8d1bdf49-037d-4a74-9785-c192602cc5f1
+	fromColumn: EXTRACTION_RUN.prompt_id
+	toColumn: PROMPT.id
+
+relationship AutoDetected_db2448d3-e30b-485f-adc1-acee7b0f5e16
+	fromColumn: EXTRACTION_RUN.model_id
+	toColumn: MODEL.id
+
+relationship AutoDetected_b7895284-c3c9-4cc2-8264-5cfea826d1e9
+	fromColumn: EXTRACTION_RUN.document_id
+	toColumn: DOCUMENT.id
+
+relationship AutoDetected_1689270f-8767-4403-a981-151c6597cb8f
+	fromColumn: EXTRACTED_TEXT.extraction_run_id
+	toColumn: EXTRACTION_RUN.id
+
+relationship 10b01cc9-11d2-e9a7-3f1d-e52932913046
+	fromColumn: EXTRACTED_TEXT_EVAL.extracted_text_id
+	toColumn: EXTRACTED_TEXT.id
+
+relationship 46e80e1c-ff50-78a8-06fa-cc19e1a15e18
+	fromColumn: HUMAN_COST.document_id
+	toColumn: DOCUMENT.id
+
+relationship a4ea91bd-78dc-c939-ac8c-36192ed96a54
+	fromColumn: MODEL_PRICE.model_id
+	toColumn: MODEL.id
+
+relationship 9a00872a-1b6d-e129-3cb3-dcabe66af4cb
+	fromColumn: ANALYZED_TEXT.extracted_text_id
+	toColumn: EXTRACTED_TEXT.id
+
+relationship 02a85fb6-a75c-a153-35b9-4387b622302b
+	fromColumn: ANALYZED_TEXT.model_id
+	toColumn: DIM_MODEL_ANALYSIS.id
+
+relationship 52ee8734-5f36-9ace-fa19-0e0a0e4dd4b5
+	fromColumn: ANALYZED_TEXT.prompt_id
+	toColumn: DIM_PROMPT_ANALYSIS.id
+
+relationship e7dbae38-59ae-45ed-b2f4-ec8664b11dfe
+	fromColumn: ANALYZED_TEXT_EVAL.analyzed_text_id
+	toColumn: ANALYZED_TEXT.id
+

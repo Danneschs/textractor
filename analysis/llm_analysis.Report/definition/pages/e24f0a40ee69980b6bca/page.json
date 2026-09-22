@@ -1,0 +1,9 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "e24f0a40ee69980b6bca",
+  "displayName": "DF_bod_cena_f1_hra",
+  "displayOption": "ActualSize",
+  "height": 1755,
+  "width": 2480,
+  "visibility": "HiddenInViewMode"
+}

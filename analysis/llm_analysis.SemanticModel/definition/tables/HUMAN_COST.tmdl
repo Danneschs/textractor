@@ -1,0 +1,68 @@
+table HUMAN_COST
+	lineageTag: 203f0364-27e1-443c-ab08-597e509e7abd
+
+	measure 'Celkový čas člověka (min)' = SUM('HUMAN_COST'[time_minute]) // kolik člověk strávil času na extrakci i formalizaci u obou dokumentů
+		formatString: 0
+		lineageTag: 0db2dd15-f5cb-4661-9b85-b492874dc3c1
+
+	measure 'Ušetřený čas (min)' = [Celkový čas člověka (min)] - [Celkový čas modelů (min)]
+		lineageTag: fab6ae0e-803a-4470-a999-a2b19046e23e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Celková cena člověka (CZK)' = ```
+			
+			SUMX(
+			    'HUMAN_COST', 
+			    DIVIDE('HUMAN_COST'[time_minute], 60) * 'HUMAN_COST'[hour_cost_CZK]
+			) // cena člověka za extrakční i formalizační fázi pro oba dokumenty
+			```
+		lineageTag: e800000e-85f6-404f-8499-e4d1fc01d239
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Ušetřené peníze (CZK)' = [Celková cena člověka (CZK)] - [Celková cena LLM (CZK)]
+		lineageTag: cf96379c-2b9b-494b-8488-729f493801a3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column document_id
+		dataType: int64
+		formatString: 0
+		lineageTag: d28bde29-1071-4099-b26d-b51acf2050b7
+		summarizeBy: none
+		sourceColumn: document_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column time_minute
+		dataType: double
+		formatString: 0
+		lineageTag: 6fcbd6d0-317d-44eb-8481-a396be8de142
+		summarizeBy: sum
+		sourceColumn: time_minute
+
+		annotation SummarizationSetBy = Automatic
+
+	column hour_cost_CZK
+		dataType: double
+		formatString: 0
+		lineageTag: ab724c42-3e02-4428-88a7-907b3e6ee8e9
+		summarizeBy: sum
+		sourceColumn: hour_cost_CZK
+
+		annotation SummarizationSetBy = Automatic
+
+	partition HUMAN_COST = m
+		mode: import
+		source =
+				let
+				    Zdroj = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WMlTSUbIwNwCSRqYGSrE60UpGQLahEVwkFgA=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [document_id = _t, time_minute = _t, hour_cost_CZK = _t]),
+				    #"Změněný typ" = Table.TransformColumnTypes(Zdroj,{{"document_id", Int64.Type}, {"time_minute", type number}, {"hour_cost_CZK", type number}})
+				in
+				    #"Změněný typ"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigace
+

@@ -1,0 +1,28 @@
+table 'Akceptovatelná přesnost ve formalizační fázi'
+	lineageTag: 75df58c1-83fb-45f8-a865-36cf2b333bd5
+
+	measure 'Hodnota parametru Akceptovatelná přesnost ve formalizační fázi' = SELECTEDVALUE('Akceptovatelná přesnost ve formalizační fázi'[Akceptovatelná přesnost ve formalizační fázi], "0.85")
+		lineageTag: 0ef54f71-547e-4b2b-83a6-26f673a3c20d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Akceptovatelná přesnost ve formalizační fázi'
+		lineageTag: d11f133a-8495-453c-b1b9-ad744703dae6
+		summarizeBy: none
+		sourceColumn: [Value]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Akceptovatelná přesnost ve formalizační fázi' = calculated
+		mode: import
+		source = GENERATESERIES(0, 1, 0.005)
+
+	annotation PBI_Id = e71fb50801844816b2b207a267e53f05
+

@@ -1,0 +1,32 @@
+table DIM_MODEL_ANALYSIS
+	lineageTag: c82e5f72-34fb-4b26-b8bd-2eba3b38b2b1
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: 8060b27b-213b-420c-9e51-1a33a74c3137
+		summarizeBy: none
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: a75e3d0e-e2fd-461c-ae2b-bc875735e988
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DIM_MODEL_ANALYSIS = m
+		mode: import
+		source =
+				let
+				    Zdroj = MODEL
+				in
+				    Zdroj
+
+	annotation PBI_NavigationStepName = Navigace
+
+	annotation PBI_ResultType = Table
+

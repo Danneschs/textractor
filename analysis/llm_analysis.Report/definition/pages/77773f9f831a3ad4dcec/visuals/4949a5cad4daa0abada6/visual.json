@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "4949a5cad4daa0abada6",
+  "position": {
+    "x": 0,
+    "y": 0,
+    "z": 3000,
+    "height": 126.9521410579345,
+    "width": 1280.4030226700252,
+    "tabOrder": 3000
+  },
+  "visualGroup": {
+    "displayName": "Skupina 1",
+    "groupMode": "ScaleMode"
+  }
+}

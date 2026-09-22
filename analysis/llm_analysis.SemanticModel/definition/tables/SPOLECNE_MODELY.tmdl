@@ -1,0 +1,25 @@
+table SPOLECNE_MODELY
+	lineageTag: 3f9b2fc6-3178-4086-afab-435e4cc533d0
+
+	column name
+		lineageTag: b92bbd9d-6472-4063-951e-9947b8be1a0d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: MODEL[name]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SPOLECNE_MODELY = calculated
+		mode: import
+		source = ```
+				
+				DISTINCT(
+				    UNION(
+				        VALUES('MODEL'[name]), 
+				        VALUES('DIM_MODEL_ANALYSIS'[name])
+				    )
+				)
+				```
+
+	annotation PBI_Id = 4e09b507950248ce92f50b58294fff81
+

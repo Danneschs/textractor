@@ -1,0 +1,187 @@
+table EXTRACTED_TEXT_EVAL
+	lineageTag: 04c6cda0-74c6-4d38-ae82-8e444b638783
+
+	measure 'Zbývá ohodnotit (extrakce)' = [Celkem extrakcí] - [Ohodnoceno (extrakce)]
+		formatString: 0
+		lineageTag: 90027d83-84e2-4c31-8408-1bce058a81fb
+
+	measure 'Celkem extrakcí' = COUNTROWS('EXTRACTED_TEXT')
+		formatString: 0
+		lineageTag: 88e0eae7-80bc-48a1-9a1c-8211ede7b6c8
+
+	measure 'Ohodnoceno (extrakce)' =
+			CALCULATE(
+			    COUNTROWS('EXTRACTED_TEXT_EVAL'),
+			    CALCULATETABLE(
+			        VALUES('DOCUMENT'[id]),
+			        'MODEL'[name] = "human"
+			    )
+			)
+		formatString: 0
+		lineageTag: 601db423-4650-4df2-b13e-e8168d616d37
+
+	measure 'TP (extrakce)' = ```
+			
+			CALCULATE(
+			    DISTINCTCOUNT('EXTRACTED_TEXT_EVAL'[matched_golden_id]), 
+			    'EXTRACTED_TEXT_EVAL'[is_correct] = TRUE(),
+			    CALCULATETABLE(
+			        VALUES('DOCUMENT'[id]),
+			        'MODEL'[name] = "human"
+			    )
+			)
+			```
+		formatString: 0
+		lineageTag: 852b477e-a8de-47a9-8aa5-7db1114552f3
+
+	measure 'FP (extrakce)' = ```
+			
+			 CALCULATE(
+			    COUNTROWS('EXTRACTED_TEXT_EVAL'), 
+			    'EXTRACTED_TEXT_EVAL'[is_correct] = FALSE(),
+			    CALCULATETABLE(
+			        VALUES('DOCUMENT'[id]),
+			        'MODEL'[name] = "human"
+			    )
+			) // co model vyprodukoval špatně (rozdělené texty, neúplné texty, halucinace)
+			```
+		formatString: 0
+		lineageTag: 5e26c649-ed58-47ca-9bb3-d6df245b7999
+
+	measure 'Celkem zlatých požadavků (extrakce)' =
+			CALCULATE(
+			    COUNTROWS('EXTRACTED_TEXT'),
+			    'MODEL'[name] = "human",
+			    REMOVEFILTERS('PROMPT')
+			)
+		formatString: 0
+		lineageTag: e054d912-9ce4-4394-bf21-543913dacb53
+
+	measure 'FN (extrakce)' = [Celkem zlatých požadavků (extrakce)] - [TP (extrakce)]
+		formatString: 0
+		lineageTag: d40f563f-9d3d-44b7-92c2-1b019a81fba9
+
+	measure 'Precision (extrakce)' = DIVIDE([TP (extrakce)], [TP (extrakce)] + [FP (extrakce)], 0) // kolik % bylo perfektních z toho, co model vyprodukoval
+		lineageTag: cf69cb18-d52d-44d2-ba1c-a13c27a0633e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Recall (extrakce)' = DIVIDE([TP (extrakce)], [Celkem zlatých požadavků (extrakce)], 0) // kolik % perfektně model našel z toho, co měl vyprodukovat?
+		lineageTag: 9e2f806a-649a-4527-8393-9f45191032e0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'F1 skóre (extrakce)' = DIVIDE(2 * [Precision (extrakce)] * [Recall (extrakce)], [Precision (extrakce)] + [Recall (extrakce)], 0) // celková kvalita
+		lineageTag: 326ba6fa-fd29-4537-8abf-48711e218098
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '_Recall (extrakce) karta' =
+			
+			IF(
+			    ISFILTERED('DOCUMENT'[filename]),
+			    [Recall (extrakce)],
+			    "---"
+			)
+		lineageTag: 38ceda63-7e54-470d-afaa-5cd37bacae8d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '_Precision (extrakce) karta' =
+			
+			IF(
+			    ISFILTERED('DOCUMENT'[filename]),
+			    [Precision (extrakce)],
+			    "---"
+			)
+		lineageTag: 2a617628-7bb5-466f-9869-8e65dccdf86e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '_F1 skóre (extrakce) karta' =
+			
+			IF(
+			    ISFILTERED('DOCUMENT'[filename]),
+			    [F1 skóre (extrakce)],
+			    "---"
+			)
+		lineageTag: c9a077f0-2652-4325-a15b-86feb2edffc4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: 83d46c20-d8a9-4710-807c-1d3f553e7a17
+		summarizeBy: sum
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column extracted_text_id
+		dataType: int64
+		formatString: 0
+		lineageTag: b793644c-6dc1-433d-b652-d299693adedb
+		summarizeBy: none
+		sourceColumn: extracted_text_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_correct
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 097f9a34-768f-4703-a456-84c2c36bcd67
+		summarizeBy: none
+		sourceColumn: is_correct
+
+		annotation SummarizationSetBy = Automatic
+
+	column evaluator_name
+		dataType: string
+		lineageTag: 6a7c7e56-4f1f-478d-b4e4-ee16692a4608
+		summarizeBy: none
+		sourceColumn: evaluator_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column matched_golden_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 0f44a0f6-843f-4613-b6ce-c5d68e5e22bb
+		summarizeBy: sum
+		sourceColumn: matched_golden_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column note
+		dataType: string
+		lineageTag: d29bd4ac-8216-4edf-82c7-a29bf03ee4e0
+		summarizeBy: none
+		sourceColumn: note
+
+		annotation SummarizationSetBy = Automatic
+
+	column mode
+		dataType: string
+		lineageTag: 0c439a6e-85bd-44cf-9402-2e8aa1a54e91
+		summarizeBy: none
+		sourceColumn: mode
+
+		annotation SummarizationSetBy = Automatic
+
+	partition EXTRACTED_TEXT_EVAL = m
+		mode: import
+		source =
+				let
+				    Zdroj = Python.Execute("import sqlite3#(lf)#(lf)import pandas as pd#(lf)#(lf)#(lf)conn = sqlite3.connect(r'D:\PIS\powerbi\projects\bonus\database.db')#(lf)#(lf)#(lf)EXTRACTED_TEXT_EVAL = pd.read_sql_query(""SELECT * FROM EXTRACTED_TEXT_EVAL"", conn)#(lf)#(lf)ANALYZED_TEXT_EVAL = pd.read_sql_query(""SELECT * FROM ANALYZED_TEXT_EVAL"", conn)#(lf)#(lf)DOCUMENT = pd.read_sql_query(""SELECT * FROM DOCUMENT"", conn)#(lf)#(lf)MODEL = pd.read_sql_query(""SELECT * FROM MODEL"", conn)#(lf)#(lf)PROMPT = pd.read_sql_query(""SELECT * FROM PROMPT"", conn)#(lf)#(lf)EXTRACTION_RUN = pd.read_sql_query(""SELECT * FROM EXTRACTION_RUN"", conn)#(lf)#(lf)EXTRACTED_TEXT = pd.read_sql_query(""SELECT * FROM EXTRACTED_TEXT"", conn)#(lf)#(lf)ANALYZED_TEXT = pd.read_sql_query(""SELECT * FROM ANALYZED_TEXT"", conn)#(lf)#(lf)#(lf)#(lf)conn.close()"),
+				    EXTRACTED_TEXT_EVAL1 = Zdroj{[Name="EXTRACTED_TEXT_EVAL"]}[Value],
+				    #"Změněný typ" = Table.TransformColumnTypes(EXTRACTED_TEXT_EVAL1,{{"id", Int64.Type}, {"extracted_text_id", Int64.Type}, {"is_correct", Int64.Type}, {"evaluator_name", type text}, {"matched_golden_id", type text}, {"note", type text}, {"mode", type text}}),
+				    #"Nahrazená hodnota" = Table.ReplaceValue(#"Změněný typ",".0","",Replacer.ReplaceText,{"matched_golden_id"}),
+				    #"Změněný typ1" = Table.TransformColumnTypes(#"Nahrazená hodnota",{{"matched_golden_id", Int64.Type}, {"is_correct", type logical}})
+				in
+				    #"Změněný typ1"
+
+	annotation PBI_NavigationStepName = Navigace
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,259 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "70973571f93c689d584b",
+  "position": {
+    "x": 0,
+    "y": 134.2065491183879,
+    "z": 2000,
+    "height": 225.79345088161207,
+    "width": 1280.4030226700252,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Columns": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DOCUMENT"
+                    }
+                  },
+                  "Property": "filename"
+                }
+              },
+              "queryRef": "DOCUMENT.filename",
+              "nativeQueryRef": "Název specifikace",
+              "active": true,
+              "displayName": "Název specifikace"
+            }
+          ]
+        },
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "MODEL"
+                    }
+                  },
+                  "Property": "name"
+                }
+              },
+              "queryRef": "MODEL.name",
+              "nativeQueryRef": "name",
+              "active": true
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "EXTRACTED_TEXT_EVAL"
+                    }
+                  },
+                  "Property": "Celkem extrakcí"
+                }
+              },
+              "queryRef": "EXTRACTED_TEXT_EVAL.Celkem k ohodnocení (extrakce)",
+              "nativeQueryRef": "Celkem extrakcí"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "EXTRACTED_TEXT_EVAL"
+                    }
+                  },
+                  "Property": "Ohodnoceno (extrakce)"
+                }
+              },
+              "queryRef": "EXTRACTED_TEXT_EVAL.Ohodnoceno (extrakce)",
+              "nativeQueryRef": "Ohodnoceno (extrakce)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "EXTRACTED_TEXT_EVAL"
+                    }
+                  },
+                  "Property": "Zbývá ohodnotit (extrakce)"
+                }
+              },
+              "queryRef": "EXTRACTED_TEXT_EVAL.Zbývá ohodnotit (extrakce)",
+              "nativeQueryRef": "Zbývá ohodnotit (extrakce)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "EXTRACTED_TEXT_EVAL"
+                    }
+                  },
+                  "Property": "Celkem zlatých požadavků (extrakce)"
+                }
+              },
+              "queryRef": "EXTRACTED_TEXT_EVAL.Celkem zlatých požadavků (extrakce)",
+              "nativeQueryRef": "Celkem zlatých požadavků (extrakce)"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "EXTRACTED_TEXT_EVAL"
+                  }
+                },
+                "Property": "Celkem extrakcí"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "values": [
+        {
+          "properties": {
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Cambria'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Cambria'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "rowHeaders": [
+        {
+          "properties": {
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Cambria'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "titleWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Cambria'"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "width": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualTooltip": [
+        {
+          "properties": {
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Cambria'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

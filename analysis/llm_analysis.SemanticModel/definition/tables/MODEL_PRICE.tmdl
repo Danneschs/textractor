@@ -1,0 +1,324 @@
+table MODEL_PRICE
+	lineageTag: 117375df-50d2-40ff-aaea-7bae03882351
+
+	measure 'Celkový čas modelů (min)' = [Celkový čas extrakce modelů (min)] + [Celkový čas formalizace modelů (min)]
+		lineageTag: cf0a0080-489b-4ade-a8c4-3ee10e88f8ba
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Celkový čas extrakce modelů (min)' =
+			
+			CALCULATE(
+			    DIVIDE(SUM('EXTRACTION_RUN'[duration_ms]), 60000, 0),
+			    FILTER(
+			        'EXTRACTED_TEXT',
+			        NOT(ISEMPTY('EXTRACTED_TEXT_EVAL') // vrátí všechny extrakční záznamy, ke kterým existuje hodnocení
+			        )),
+			    CALCULATETABLE(VALUES('DOCUMENT'[id]), 'MODEL'[name] = "human")
+			)
+		lineageTag: 333fd268-3e06-432c-8c79-83525800bf02
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Celkový čas formalizace modelů (min)' =
+			
+			CALCULATE(
+			    DIVIDE(SUM('ANALYZED_TEXT'[duration_ms]), 60000, 0),
+			    FILTER('ANALYZED_TEXT', NOT(ISEMPTY('ANALYZED_TEXT_EVAL'))),
+			    'MODEL'[name] = "human"
+			) // celkový čas ze všech formalizačních záznamů, které byly provedeny nad golden extrakčními záznamy; počítá se pouze z hodnocených
+		lineageTag: b3c37c78-13c1-42e5-b8b4-a51d62d3f1bc
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Celková cena extrakce (CZK)' =
+			
+			CALCULATE(
+			    SUMX(
+			        'EXTRACTION_RUN',
+			        DIVIDE('EXTRACTION_RUN'[input_tokens], 1000000) * LOOKUPVALUE('MODEL_PRICE'[input_price_1M_USD], 'MODEL_PRICE'[model_id], 'EXTRACTION_RUN'[model_id]) +
+			        DIVIDE('EXTRACTION_RUN'[output_tokens], 1000000) * LOOKUPVALUE('MODEL_PRICE'[output_price_1M_USD], 'MODEL_PRICE'[model_id], 'EXTRACTION_RUN'[model_id])
+			    ),
+			    FILTER(
+			        'EXTRACTED_TEXT',
+			        NOT(ISEMPTY('EXTRACTED_TEXT_EVAL')) // vyfiltruje všechny extrakční záznamy, které mají ohodnocení
+			    )
+			) * [Kurz z USD na CZK]
+		lineageTag: f2f123b8-fe41-4513-a443-c572126cfad9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Celková cena LLM (CZK)' = [Celková cena extrakce (CZK)] + [Celková cena formalizace (CZK)]
+		lineageTag: 729f6c7d-deb0-4077-a989-7c78feb3d32d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Celková cena formalizace (CZK)' =
+			
+			CALCULATE(
+			    SUMX(
+			        'ANALYZED_TEXT',
+			        DIVIDE('ANALYZED_TEXT'[input_tokens], 1000000) * LOOKUPVALUE('MODEL_PRICE'[input_price_1M_USD], 'MODEL_PRICE'[model_id], 'ANALYZED_TEXT'[model_id]) +
+			        DIVIDE('ANALYZED_TEXT'[output_tokens], 1000000) * LOOKUPVALUE('MODEL_PRICE'[output_price_1M_USD], 'MODEL_PRICE'[model_id], 'ANALYZED_TEXT'[model_id])
+			    ),
+			    FILTER('ANALYZED_TEXT', NOT(ISEMPTY('ANALYZED_TEXT_EVAL'))),
+			    'MODEL'[name] = "human"
+			) * [Kurz z USD na CZK] // cena se počítá jen z formalizačních záznamů vytvořené nad golden extrakčními záznamy; počítá se pouze ze záznamů, které jsou ohodnocené
+		lineageTag: ab8afd58-c009-4ce4-88e6-de2c05200e37
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Průměrná cena extrakce za kus (CZK)' = DIVIDE([Celková cena extrakce (CZK)], CALCULATE(COUNTROWS('EXTRACTION_RUN'), FILTER('EXTRACTED_TEXT', NOT(ISEMPTY('EXTRACTED_TEXT_EVAL'))))) // cena se počítá pouze z evaluovaných záznamů
+		lineageTag: 591af509-e96e-4b97-ba2b-2e0504f35c82
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Průměrná cena formalizace za kus (CZK)' = ```
+			
+			DIVIDE(
+			    [Celková cena formalizace (CZK)], 
+			    CALCULATE(
+			        COUNTROWS('ANALYZED_TEXT'), 
+			        FILTER('ANALYZED_TEXT', NOT(ISEMPTY('ANALYZED_TEXT_EVAL'))),
+			        'MODEL'[name] = "human"
+			    )
+			)
+			 // průměrná cena se počítá pouze z formalizačních záznamů z takových extrakčních, ke kterým existuje golden dataset; pouze pro ohodnocené záznamy
+			```
+		lineageTag: 6ea1311b-2b5e-4feb-9a4b-f62f3e723d2f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Ušetřenné peníze (CZK)' = [Celková cena člověka (CZK)] - [Celková cena LLM (CZK)]
+		lineageTag: 206242e9-cc75-4dbb-bb42-29821540e787
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Graf_Cena_Extrakce = ```
+			
+			VAR VybranyModel = SELECTEDVALUE('SPOLECNE_MODELY'[name])
+			RETURN
+			IF(
+			    VybranyModel <> "human", 
+			    CALCULATE([Celková cena extrakce (CZK)], 'MODEL'[name] = VybranyModel), 
+			    BLANK()
+			)
+			```
+		lineageTag: bb540e36-ade8-4610-b8c4-338b0f342df1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Graf_Cena_Formalizace =
+			
+			VAR VybranyModel = SELECTEDVALUE('SPOLECNE_MODELY'[name])
+			RETURN
+			IF(
+			    VybranyModel <> "human",
+			    CALCULATE([Celková cena formalizace (CZK)], 'DIM_MODEL_ANALYSIS'[name] = VybranyModel),
+			    BLANK()
+			)
+		lineageTag: 429d64d3-e7fe-4176-a217-4e9f74e5ea62
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Graf_Cena_Clovek = ```
+			
+			VAR VybranyModel = SELECTEDVALUE('SPOLECNE_MODELY'[name])
+			VAR Volba = SELECTEDVALUE('Switch_human_summary'[Show_human], "Ano")
+			RETURN
+			IF(
+			    VybranyModel = "human" && Volba = "Ano", 
+			    [Celková cena člověka (CZK)], 
+			    BLANK()
+			)
+			```
+		lineageTag: 54b7bb52-7108-408c-9a08-6e89d82a08b1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Graf_Cas_Celkem =
+			
+			VAR VybranyModel = SELECTEDVALUE('SPOLECNE_MODELY'[name])
+			VAR Volba = SELECTEDVALUE('Switch_human_summary'[Show_human], "Ano")
+			
+			VAR CasExtrakce = CALCULATE([Celkový čas extrakce modelů (min)], 'MODEL'[name] = VybranyModel)
+			VAR CasFormalizace = CALCULATE([Celkový čas formalizace modelů (min)], 'DIM_MODEL_ANALYSIS'[name] = VybranyModel)
+			
+			RETURN
+			IF(
+			    VybranyModel = "human",
+			    IF(Volba = "Ano", [Celkový čas člověka (min)], BLANK()),
+			    CasExtrakce + CasFormalizace
+			)
+		lineageTag: a83ada7a-e023-437b-8064-647bdcc09275
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '_Průměrná cena extrakce (na jeden model)' = ```
+			
+			
+			AVERAGEX(
+			    VALUES('MODEL'[name]), 
+			    [Průměrná cena extrakce za kus (CZK)]
+			)
+			```
+		lineageTag: 90cd97d4-890d-4ae7-91f9-b919f46026e9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '_Průměrná cena formalizace (na jeden model)' = ```
+			
+			
+			AVERAGEX(
+			    VALUES('DIM_MODEL_ANALYSIS'[name]), 
+			    [Průměrná cena formalizace za kus (CZK)]
+			)
+			```
+		lineageTag: 5f1491d4-cbfd-46ba-8a18-727bb2e7bf00
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Kurz z USD na CZK' = 21.24
+		lineageTag: b1dd85e8-3746-4095-b134-99be196c979d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Průměrný čas extrakce modelů za dokument (min)' = ```
+			
+			DIVIDE(
+			    [Celkový čas extrakce modelů (min)], 
+			    CALCULATE(
+			        COUNTROWS('EXTRACTION_RUN'), 
+			        FILTER(
+			            'EXTRACTED_TEXT',
+			            NOT(ISEMPTY('EXTRACTED_TEXT_EVAL'))
+			        )
+			    )
+			) // průměrný čas extrakce modelů jen z ohodnocených záznamů
+			```
+		lineageTag: 36e00a9b-8fc7-44fd-8b1d-c0106148b217
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Průměrný čas formalizace modelů za požadavek (min)' = ```
+			
+			DIVIDE(
+			    [Celkový čas formalizace modelů (min)], 
+			    CALCULATE(
+			        COUNTROWS('ANALYZED_TEXT'), 
+			        FILTER('ANALYZED_TEXT', NOT(ISEMPTY('ANALYZED_TEXT_EVAL'))),
+			        'MODEL'[name] = "human"
+			    )
+			) // celkový čas se počítá z analyzed_text záznamů, které byly vytvořeny nad extrakčními golden záznamy; pouze pro záznamy, ke kterým funguje hodnocení
+			```
+		lineageTag: 87f8836e-f691-49c5-af0e-0eb149a9e358
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Sdruzeny_Cas_Modelu = ```
+			
+			VAR VybranyModel = SELECTEDVALUE('SPOLECNE_MODELY'[name])
+			
+			VAR CasExtrakce = 
+			    CALCULATE(
+			        [Celkový čas extrakce modelů (min)],
+			        'MODEL'[name] = VybranyModel
+			    )
+			
+			VAR CasFormalizace = 
+			    CALCULATE(
+			        [Celkový čas formalizace modelů (min)],
+			        'DIM_MODEL_ANALYSIS'[name] = VybranyModel
+			    )
+			
+			RETURN 
+			CasExtrakce + CasFormalizace
+			```
+		lineageTag: 9d115fad-71b8-4538-87c3-1dcaac8068a9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Průměrný čas extrakce modelů za dokument (s)' = [Průměrný čas extrakce modelů za dokument (min)] * 60
+		lineageTag: 5a487fbb-cafa-45d8-97af-cc38105bc7a3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Průměrný čas formalizace modelů za požadavek (s)' = [Průměrný čas formalizace modelů za požadavek (min)] * 60
+		lineageTag: 8dddbc38-0a05-4cc8-8fa1-8aa40805980e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Celková cena GPT (CZK)' = ```
+			
+			CALCULATE([Celková cena extrakce (CZK)], 'MODEL'[name] = "gpt-5.4-nano") + 
+			CALCULATE([Celková cena formalizace (CZK)], 'DIM_MODEL_ANALYSIS'[name] = "gpt-5.4-nano")
+			```
+		lineageTag: 92616553-2cf2-46e9-a118-874fd2ef8232
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Celkový čas GPT (min)' = ```
+			
+			CALCULATE([Celkový čas extrakce modelů (min)], 'MODEL'[name] = "gpt-5.4-nano") + 
+			CALCULATE([Celkový čas formalizace modelů (min)], 'DIM_MODEL_ANALYSIS'[name] = "gpt-5.4-nano")
+			```
+		lineageTag: 36ab5282-e798-40fc-82da-63fe2ec3f8d9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Míra
+		lineageTag: 87ed0652-d559-4267-8fa9-0d95ed203af7
+
+		annotation 43dbc3e8-3a1c-4b6f-9923-b49ff7d6691c = True
+
+	measure 'Ušetřený čas GPT (min)' =
+			
+			[Celkový čas člověka (min)] - [Celkový čas GPT (min)]
+		lineageTag: f2c76188-96c5-4d77-8058-b8743448d23f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column model_id
+		dataType: int64
+		formatString: 0
+		lineageTag: b1cc928a-bf55-4fa4-bca5-24c6e287cb6b
+		summarizeBy: none
+		sourceColumn: model_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column input_price_1M_USD
+		dataType: double
+		lineageTag: a1c2c79d-a30b-4959-b7a1-08ad19abcc9b
+		summarizeBy: sum
+		sourceColumn: input_price_1M_USD
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column output_price_1M_USD
+		dataType: double
+		lineageTag: add6c9d3-95fb-48b7-bade-6e3eef177dbc
+		summarizeBy: sum
+		sourceColumn: output_price_1M_USD
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition MODEL_PRICE = m
+		mode: import
+		source =
+				let
+				    Zdroj = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WMlLSUTLQA5GGekamSrE60UrGQA5IwAzMMwEpAOPYWAA=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [model_id = _t, input_price_1M_USD = _t, output_price_1M_USD = _t]),
+				    #"Nahrazená hodnota" = Table.ReplaceValue(Zdroj,".",",",Replacer.ReplaceText,{"input_price_1M_USD"}),
+				    #"Nahrazená hodnota1" = Table.ReplaceValue(#"Nahrazená hodnota",".",",",Replacer.ReplaceText,{"output_price_1M_USD"}),
+				    #"Změněný typ" = Table.TransformColumnTypes(#"Nahrazená hodnota1",{{"input_price_1M_USD", type number}, {"output_price_1M_USD", type number}, {"model_id", Int64.Type}})
+				in
+				    #"Změněný typ"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigace
+

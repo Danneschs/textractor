@@ -1,0 +1,123 @@
+table ANALYZED_TEXT_EVAL
+	lineageTag: 7da5fe55-a946-4dbf-8b59-1a3cb588e39f
+
+	measure 'Celkem formalizovaných požadavků' =
+			
+			CALCULATE(
+			    COUNTROWS('ANALYZED_TEXT'),
+			    'MODEL'[name] = "human",
+			    REMOVEFILTERS('PROMPT'),
+			    REMOVEFILTERS('DIM_PROMPT_ANALYSIS')
+			) // pouze ty formalizace ke zlatému datasetu v extrakční fázi
+		formatString: 0
+		lineageTag: c79113ea-4812-41ed-9840-39b6cf8327d7
+
+	measure 'Ohodnoceno (formalizace)' =
+			
+			CALCULATE(
+			    DISTINCTCOUNT('ANALYZED_TEXT_EVAL'[analyzed_text_id]),
+			    'MODEL'[name] = "human"
+			) // pouze ty formalizace ke golden datasetu v extrakční fázi
+		formatString: 0
+		lineageTag: 7d339ced-61c7-479f-9d0c-457dc0f47c66
+
+	measure 'Zbývá ohodnotit (formalizace)' = [Celkem formalizovaných požadavků] - [Ohodnoceno (formalizace)]
+		formatString: 0
+		lineageTag: d4708fd9-d2a3-4f3f-b868-d3ccda6cc9dc
+
+	measure 'Správně (formalizace)' =
+			
+			CALCULATE(
+			    DISTINCTCOUNT('ANALYZED_TEXT_EVAL'[analyzed_text_id]),
+			    'ANALYZED_TEXT_EVAL'[is_correct] = TRUE(),
+			    'MODEL'[name] = "human"
+			) // počet správných formalizačních požadavků, které byly provedeny na golden extracted datasetem
+		formatString: 0
+		lineageTag: 53dc4eb3-6acd-41f2-b638-181be6e3613d
+
+	measure 'Accuracy (formalizace)' = DIVIDE([Správně (formalizace)], [Ohodnoceno (formalizace)], 0)
+		lineageTag: 3e2f2250-c506-479a-be44-652e08119d5a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Chybně (formalizace)' = [Ohodnoceno (formalizace)] - [Správně (formalizace)]
+		formatString: 0
+		lineageTag: 7be76425-53dc-4e49-957b-ab3c6f4c27ad
+
+	measure '_Accuracy (formalizace) karta' =
+			
+			IF(
+			    ISFILTERED('DOCUMENT'[filename]),
+			    [Accuracy (formalizace)],
+			    "---"
+			)
+		lineageTag: 1850c49c-424e-4e32-a2b0-d5ad68163b08
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: 2d4023c2-fd6c-4f82-bd6e-735b14cf1684
+		summarizeBy: sum
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column analyzed_text_id
+		dataType: int64
+		formatString: 0
+		lineageTag: cc1413ce-7f6d-47a4-9321-284af6953543
+		summarizeBy: none
+		sourceColumn: analyzed_text_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_correct
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 9b3cc23f-6b27-4de4-9e2b-804e41c8bfce
+		summarizeBy: none
+		sourceColumn: is_correct
+
+		annotation SummarizationSetBy = Automatic
+
+	column evaluator_name
+		dataType: string
+		lineageTag: 0785c486-5a8e-419d-8918-17262a30d2cc
+		summarizeBy: none
+		sourceColumn: evaluator_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column note
+		dataType: string
+		lineageTag: 6608b9fa-7fe0-4d7e-b265-a723dec4b3f9
+		summarizeBy: none
+		sourceColumn: note
+
+		annotation SummarizationSetBy = Automatic
+
+	column mode
+		dataType: string
+		lineageTag: b73402c1-8a10-4de2-aed0-2b25c269a3ba
+		summarizeBy: none
+		sourceColumn: mode
+
+		annotation SummarizationSetBy = Automatic
+
+	partition ANALYZED_TEXT_EVAL = m
+		mode: import
+		source =
+				let
+				    Zdroj = Python.Execute("import sqlite3#(lf)#(lf)import pandas as pd#(lf)#(lf)#(lf)conn = sqlite3.connect(r'D:\PIS\powerbi\projects\bonus\database.db')#(lf)#(lf)#(lf)EXTRACTED_TEXT_EVAL = pd.read_sql_query(""SELECT * FROM EXTRACTED_TEXT_EVAL"", conn)#(lf)#(lf)ANALYZED_TEXT_EVAL = pd.read_sql_query(""SELECT * FROM ANALYZED_TEXT_EVAL"", conn)#(lf)#(lf)DOCUMENT = pd.read_sql_query(""SELECT * FROM DOCUMENT"", conn)#(lf)#(lf)MODEL = pd.read_sql_query(""SELECT * FROM MODEL"", conn)#(lf)#(lf)PROMPT = pd.read_sql_query(""SELECT * FROM PROMPT"", conn)#(lf)#(lf)EXTRACTION_RUN = pd.read_sql_query(""SELECT * FROM EXTRACTION_RUN"", conn)#(lf)#(lf)EXTRACTED_TEXT = pd.read_sql_query(""SELECT * FROM EXTRACTED_TEXT"", conn)#(lf)#(lf)ANALYZED_TEXT = pd.read_sql_query(""SELECT * FROM ANALYZED_TEXT"", conn)#(lf)#(lf)#(lf)#(lf)conn.close()"),
+				    ANALYZED_TEXT_EVAL1 = Zdroj{[Name="ANALYZED_TEXT_EVAL"]}[Value],
+				    #"Změněný typ" = Table.TransformColumnTypes(ANALYZED_TEXT_EVAL1,{{"analyzed_text_id", Int64.Type}, {"id", Int64.Type}, {"is_correct", Int64.Type}}),
+				    #"Změněný typ1" = Table.TransformColumnTypes(#"Změněný typ",{{"is_correct", type logical}})
+				in
+				    #"Změněný typ1"
+
+	annotation PBI_NavigationStepName = Navigace
+
+	annotation PBI_ResultType = Table
+

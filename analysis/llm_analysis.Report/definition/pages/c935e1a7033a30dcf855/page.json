@@ -1,0 +1,8 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "c935e1a7033a30dcf855",
+  "displayName": "Celkové srovnání",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280
+}

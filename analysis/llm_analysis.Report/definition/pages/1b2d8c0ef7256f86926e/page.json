@@ -1,0 +1,35 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "1b2d8c0ef7256f86926e",
+  "displayName": "Poměr ceny a kvality ve formalizační fázi",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "objects": {
+    "outspacePane": [
+      {
+        "properties": {
+          "width": {
+            "expr": {
+              "Literal": {
+                "Value": "201L"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "5d99bf2365255adbb14d",
+      "target": "eab58fdb439db0f237e0",
+      "type": "NoFilter"
+    },
+    {
+      "source": "5d99bf2365255adbb14d",
+      "target": "f80dc762652402a69936",
+      "type": "NoFilter"
+    }
+  ]
+}

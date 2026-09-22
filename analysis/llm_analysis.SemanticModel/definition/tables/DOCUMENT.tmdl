@@ -1,0 +1,72 @@
+table DOCUMENT
+	lineageTag: 7528291b-fcc8-4025-bf2b-a660810c8c50
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: 79cafb14-8e59-4a18-aaa2-f7b2a9a572d7
+		summarizeBy: none
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column filename
+		dataType: string
+		lineageTag: 83e15437-95db-4f1c-b600-0860dd4a5675
+		summarizeBy: none
+		sourceColumn: filename
+
+		annotation SummarizationSetBy = Automatic
+
+	column file_path
+		dataType: string
+		lineageTag: c8bad96c-74ae-468f-b219-18ddb1fdd971
+		summarizeBy: none
+		sourceColumn: file_path
+
+		annotation SummarizationSetBy = Automatic
+
+	column image_folder_path
+		dataType: string
+		lineageTag: a5d5052a-1a29-4903-b309-c20f309685ee
+		summarizeBy: none
+		sourceColumn: image_folder_path
+
+		annotation SummarizationSetBy = Automatic
+
+	column upload_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: b81e6947-c24f-4203-a163-fc3a189aa0c9
+		summarizeBy: none
+		sourceColumn: upload_date
+
+		variation Variace
+			isDefault
+			relationship: f01c50db-854a-442f-9158-5fca8775572d
+			defaultHierarchy: LocalDateTable_da0b0f88-6dec-4662-b9cc-e58f50edcf7b.'Hierarchie dat'
+
+		annotation SummarizationSetBy = Automatic
+
+	column raw_full_text
+		dataType: string
+		lineageTag: b87db124-8f52-4ca0-8c04-8cd28918146a
+		summarizeBy: none
+		sourceColumn: raw_full_text
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DOCUMENT = m
+		mode: import
+		source =
+				let
+				    Zdroj = Python.Execute("import sqlite3#(lf)#(lf)import pandas as pd#(lf)#(lf)#(lf)conn = sqlite3.connect(r'D:\PIS\powerbi\projects\bonus\database.db')#(lf)#(lf)#(lf)EXTRACTED_TEXT_EVAL = pd.read_sql_query(""SELECT * FROM EXTRACTED_TEXT_EVAL"", conn)#(lf)#(lf)ANALYZED_TEXT_EVAL = pd.read_sql_query(""SELECT * FROM ANALYZED_TEXT_EVAL"", conn)#(lf)#(lf)DOCUMENT = pd.read_sql_query(""SELECT * FROM DOCUMENT"", conn)#(lf)#(lf)MODEL = pd.read_sql_query(""SELECT * FROM MODEL"", conn)#(lf)#(lf)PROMPT = pd.read_sql_query(""SELECT * FROM PROMPT"", conn)#(lf)#(lf)EXTRACTION_RUN = pd.read_sql_query(""SELECT * FROM EXTRACTION_RUN"", conn)#(lf)#(lf)EXTRACTED_TEXT = pd.read_sql_query(""SELECT * FROM EXTRACTED_TEXT"", conn)#(lf)#(lf)ANALYZED_TEXT = pd.read_sql_query(""SELECT * FROM ANALYZED_TEXT"", conn)#(lf)#(lf)#(lf)#(lf)conn.close()"),
+				    DOCUMENT1 = Zdroj{[Name="DOCUMENT"]}[Value],
+				    #"Změněný typ" = Table.TransformColumnTypes(DOCUMENT1,{{"id", Int64.Type}, {"filename", type text}, {"file_path", type text}, {"image_folder_path", type text}, {"upload_date", type datetime}, {"raw_full_text", type text}})
+				in
+				    #"Změněný typ"
+
+	annotation PBI_NavigationStepName = Navigace
+
+	annotation PBI_ResultType = Table
+
